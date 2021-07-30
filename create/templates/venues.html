@@ -1,0 +1,31 @@
+{% extends 'main.html' %}
+{% block title %}Fyyur | Venues{% endblock %}
+{% block content %}
+{% if areas %}
+	{% for area in areas %}
+	<h3>{{ area.city }}, {{ area.state }}</h3>
+		<ul class="items">
+			{% for venue in area.venues %}
+			<li>
+					<i class="fas fa-music"></i>
+					<div class="item">
+				<a href="/venues/{{ venue.id }}"><h5>{{ venue.name }}</h5></a>
+					{% if venue.num_upcoming_shows == 0 %}
+						<h5 class="text-danger"> we will keep you updated...</h5>
+						{% else %}
+						{% if venue.num_upcoming_shows == 1 %}					
+						<h5 class='text-success'>{{ venue.num_upcoming_shows }} upcoming show</h5>
+					{% else %}
+						<h5 class='text-success'>{{ venue.num_upcoming_shows }} upcoming shows</h5>
+						{% endif%}
+					{% endif%}
+					</div>
+				
+			</li>
+			{% endfor %}
+		</ul>
+	{% endfor %}
+{% else %}
+	<h3>No venues have been added yet.  <a href="/create">Be the first!</a></h3>
+{% endif %}
+{% endblock %}
